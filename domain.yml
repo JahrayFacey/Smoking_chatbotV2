@@ -1,0 +1,206 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - start_introduction_form
+  - create_commitment
+actions:
+  # - action_introduction_form
+  - validate_introduction_form
+  - action_save_commitment
+
+entities:
+  - name
+  - length_of_addiction
+  - money_spent
+  - reasons_for_change
+
+slots:
+  # completed_form:
+  #   type: bool
+  #   influence_conversation: false
+  #   initial_value: false
+  #   mappings:
+  #   - type: custom
+  #     action: action_complete_intro_form
+
+  name:
+    type: text
+    mappings:
+    - type: from_text
+      conditions: 
+        - active_loop: introduction_form
+          requested_slot: name
+
+
+  length_of_addiction:
+    type: text
+    mappings: 
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: length_of_addiction
+
+  money_spent:
+    type: text
+    mappings:
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: money_spent
+
+  reasons_for_change:
+    type: text
+    mappings: 
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: reasons_for_change
+  
+  set_commitment:
+    type: list
+    influence_conversation: False
+    mappings:
+    - type: from_text
+      conditions:
+        - active_loop: commitment_form
+          requested_slot: set_commitment
+  
+  Location:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: relapse_form
+            requested_slot: Location
+  
+  Time:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: relapse_form
+            requested_slot: Time
+  
+  feelings_before:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: relapse_form
+            requested_slot: feelings_before
+
+  feelings_after:
+    type: text
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: relapse_form
+            requested_slot: feelings_after
+
+forms:
+  introduction_form:
+    required_slots:
+      - name
+      - length_of_addiction
+      - money_spent
+      - reasons_for_change
+  
+  commitment_form:
+    required_slots:
+      - set_commitment
+  
+  relapse_form:
+    required_slots:
+      - Location
+      - Time
+      - feelings_before
+      - feelings_after
+
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_introduction:
+  - text: "Hey! Hope everything is going okay. My name is Paul and I'm glad you're here to start your path to freedom.\n Before we begin I would just like to ask a few questions. is that okay?"
+
+  utter_ask_introduction_form_name:
+  - text: "What is your name"
+
+  utter_ask_introduction_form_length_of_addiction:
+  - text: "How long have you been smoking for? Answer in days, weeks, months or years (e.g. 2 months)."
+
+  utter_ask_introduction_form_money_spent:
+  - text: "How much money do you spend on a pack of ciggarattes? Don't type in the currency sign"
+
+  utter_ask_set_commitment:
+  - text: "Do you want to set a commitment {name}? Commitments can be a big motivator."
+
+  utter_ask_introduction_form_reasons_for_change:
+  - text: "what are your reasons for wanting to change? An example is your family or finance."
+
+  utter_intro_congratulations:
+  - text: "Congratulations on recognising an issue and taking steps to fix it. It can be hard for a lot of people to do. The trick to reaching your goals is celebrating the small ones."
+
+  utter_introduction_already_done:
+  - text: "Introduction has already been done {name}!"
+
+
+  utter_ask_commitment_form_set_commitment:
+  - text: "You can set a commitment now. An example could be 'I am going to focus on things that are important'"
+  
+  utter_commitment:
+  - text: "Here's your commitment {name}. \"{commitment}\""
+
+  utter_no_commitment:
+  - text: "That's alright {name}! You can set a commitment at any time."
+
+  utter_support_message_1:
+  - text: "That's alright {name}. We all have setbacks,but what's important is that we get back on the horse and keep going on our journey."
+
+  utter_relapse_form:
+  - text: "Are you fine with being asked about the situation so we can help ensure it doesn't happen again?"
+
+  utter_ask_relapse_form_Location:
+  - text: "Where was you when you smoked?"
+
+  utter_ask_relapse_form_Time:
+  - text: "What time of the day was it?"
+
+  utter_ask_relapse_form_feelings_before:
+  - text: "How did you feel before you smoked?"
+
+  utter_ask_relapse_form_feelings_after:
+  - text: "Lastly, how did you feel after you had smoked?"
+
+  utter_relapse_form_completion:
+  - text: "Thank you for the answers. Now that you have identified a trigger we can now take steps to keep yourself grounded and smoke-free."
+
+  utter_choose_activity:
+  - text: "choose an activity from the list alone."
+
+  utter_ask_practise_activity:
+  - text: "Would you like to practise it now?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
