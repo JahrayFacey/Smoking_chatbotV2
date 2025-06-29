@@ -1,0 +1,43 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+
+- rule: submit introduction form
+  condition:
+    - active_loop: introduction_form
+  steps:
+    - action: introduction_form
+    - active_loop: null
+    - slot_was_set:
+      - requested_slot: null
+    - action: utter_intro_congratulations
+
+- rule: skip introduction form if the slots have already been filled
+  steps:
+    - intent: start_introduction_form
+    - slot_was_set:
+      - name: NOT null
+      - money_spent: NOT null
+      - reasons_for_change: NOT null
+      - length_of_addiction: NOT null
+    - action: utter_introduction_already_done
+
+- rule: user wants to create a new commitment
+  steps:
+    - intent: create_commitment
+    - active_loop: commitment_form
+
+- rule: Submit commitment form
+  condition:
+    - active_loop: commitment_form
+  steps:
+    - action: commitment_form
+    - active_loop: null
+    - action: action_save_commitment
+

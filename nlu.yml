@@ -1,0 +1,132 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - sure
+    - okay
+    - why not
+    - yes i Did
+    - yeah, great
+    - pretty good
+    - fine
+    - you bet
+    - i sure Did
+    - more or less
+    - yes please
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - none
+    - absolutely not
+    - nope
+    - no thanks
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: start_introduction_form
+  examples: |
+    - I want to get started
+    - Begin intro
+    - Begin introduction
+    - I'm ready
+    - Let's start
+    - Go for it
+    - I would like to start my introduction
+    - I want to start an introduction
+    - Im ready
+
+- intent: create_commitment
+  examples: |
+    - I want to create a commitment 
+    - I would like to create a new commitment
+    - I want to update my commitments
+    - Lets make a new commitment 
+    - can i create a new commitment
+    - I want to make a commitment
+    - I think I want to make a new commitment
+
+- intent: relapsed
+  examples: |
+    - I smoked
+    - I smoked today
+    - I feel sad, I smoked
+    - I had a puff today
+    - I had a cig today
+    - I smoked a cig today
+    - I smoked a ciggerate today
+    - I smoked a fag today.
