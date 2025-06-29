@@ -1,0 +1,119 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: activate introduction form
+  steps:
+    - intent: start_introduction_form
+    - action: utter_introduction
+    - action: introduction_form
+    - active_loop: introduction_form
+
+- story: Congratulate the user on completing the intro form and then ask about setting a commitment
+  steps:
+    - action: introduction_form
+    - active_loop: null
+    - action: utter_intro_congratulations
+    - action: utter_ask_set_commitment
+
+- story: ask user if they would like to set a commitment after completing the intro form/happy path
+  steps:
+    - checkpoint: utter_ask_set_commitment
+    - intent: affirm
+    - action: commitment_form
+    - active_loop: commitment_form
+    - active_loop: null
+    - action: action_save_commitment
+
+- story: ask user if they would like to set a commitment after completing the intro form/Sad path
+  steps:
+    - checkpoint: utter_ask_set_commitment
+    - intent: deny
+    - action: utter_no_commitment
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: start_introduction_form
+#   - action: utter_introduction
+#   - action: introduction_form
+#   - active_loop: introduction_form
+#   - slot_was_set:
+#     - requested_slot: name
+#   - intent: affirm
+#   - slot_was_set:
+#     - name: Jahray
+#   - action: introduction_form
+#   - slot_was_set:
+#     - name: Jahray
+#   - slot_was_set:
+#     - requested_slot: length_of_addiction
+#   - intent: affirm
+#   - slot_was_set:
+#     - length_of_addiction: 2 weeks
+#   - action: introduction_form
+#   - slot_was_set:
+#     - length_of_addiction: 2 weeks
+#   - slot_was_set:
+#     - requested_slot: money_spent
+#   - intent: affirm
+#   - slot_was_set:
+#     - money_spent: '14'
+#   - action: introduction_form
+#   - slot_was_set:
+#     - money_spent: 14.0
+#   - slot_was_set:
+#     - requested_slot: reasons_for_change
+#   - intent: mood_great
+#   - slot_was_set:
+#     - reasons_for_change: My family
+#   - action: introduction_form
+#   - slot_was_set:
+#     - reasons_for_change: My family
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_intro_congratulations
+#   - action: utter_ask_set_commitment
+#   - intent: affirm
+#   - action: commitment_form
+#   - active_loop: commitment_form
+#   - slot_was_set:
+#     - requested_slot: set_commitment
+#   - intent: mood_great
+#   - slot_was_set:
+#     - set_commitment:
+#       - I am going to quit smoking and become healthier
+#   - action: commitment_form
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: action_save_commitment
+#   - slot_was_set:
+#     - set_commitment: I am going to quit smoking and become healthier
