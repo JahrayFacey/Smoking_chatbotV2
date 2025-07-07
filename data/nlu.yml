@@ -49,6 +49,7 @@ nlu:
     - i sure Did
     - more or less
     - yes please
+    - definitely
 
 - intent: deny
   examples: |
@@ -120,6 +121,15 @@ nlu:
     - I want to make a commitment
     - I think I want to make a new commitment
 
+- intent: show_commitment
+  examples: |
+    - I want to see my commitment
+    - Show me my commitment
+    - Can I view my commitment please?
+    - Let's see my commitment
+    - What was my commitment again?
+    - Can I see my commitment? 
+
 - intent: relapsed
   examples: |
     - I smoked
@@ -130,3 +140,44 @@ nlu:
     - I smoked a cig today
     - I smoked a ciggerate today
     - I smoked a fag today.
+
+- intent: craving
+  examples: |
+    - I have a strong craving
+    - I'm feeling a craving right now
+    - It's so hard to focus right now
+    - I feel like i need a ciggerate
+    - I have a craving
+    - My craving is really strong right now
+    - I want to have a cig
+    - I have a really bad craving
+    - I really want to smoke
+    - I can't focus because I want to smoke
+    - I need a ciggarette 
+    - It's hard to concentrate
+    - My urge is strong
+
+- intent: choose_activity
+  examples: |
+    - [mindfulness](meditation_type)
+    - [mindfulness mediation](meditation_type)
+    - I would like to try [mindfullness](meditation_type)
+    - Let's use [mindfullnes mediation](meditation_type)
+    - I want [mindfulness meditation](meditation_type)
+    - [4-7-8](breathwork_type)
+    - [478](breathwork_type)
+    - [4 7 8 breathing](breathwork_type)
+    - I would like to try [box breathing](breathwork_type)
+    - lets do [box breathing](breathwork_type)
+    - [box breathing](breathwork_type)
+    - i want to try [box breathing](breathwork_type)
+    - I would like to try [abdominal breathing](breathwork_type)
+    - Let's do [abdominal breathing](breathwork_type)
+    - can we try [abdominal breathing](breathwork_type)
+    - [abdominal](breathwork_type) sounds good
+    - i would like to try (progressive relaxation)(meditation_type)
+    - can we try [progressive relaxation](meditation_type)
+    - i would like some [progressive relaxation](meditation_type)
+    - i would like to try [focused meditation](meditation_type)
+    - can we try some [focused meditation](meditation_type)
+    - i would like some [focused meditation](meditation_type)

@@ -35,17 +35,19 @@ stories:
     - action: utter_introduction
     - action: introduction_form
     - active_loop: introduction_form
-
-- story: Congratulate the user on completing the intro form and then ask about setting a commitment
-  steps:
-    - action: introduction_form
-    - active_loop: null
     - action: utter_intro_congratulations
-    - action: utter_ask_set_commitment
+    - action: utter_question_commitment
+
+# - story: Congratulate the user on completing the intro form and then ask about setting a commitment
+#   steps:
+#     - action: introduction_form
+#     - active_loop: null
+#     - action: utter_intro_congratulations
+#     - action: utter_question_commitment
 
 - story: ask user if they would like to set a commitment after completing the intro form/happy path
   steps:
-    - checkpoint: utter_ask_set_commitment
+    - action: utter_question_commitment
     - intent: affirm
     - action: commitment_form
     - active_loop: commitment_form
@@ -54,10 +56,40 @@ stories:
 
 - story: ask user if they would like to set a commitment after completing the intro form/Sad path
   steps:
-    - checkpoint: utter_ask_set_commitment
+    - action: utter_question_commitment
     - intent: deny
     - action: utter_no_commitment
 
+- story: user reports that they smoked 
+  steps:
+    - intent: relapsed
+    - action: utter_support_message_1
+    - action: utter_relapse_form
+    - intent: affirm
+    - action: relapse_form
+    - active_loop: relapse_form
+    - active_loop: null
+    - action: utter_relapse_completion
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - slot_was_set:
+      - meditation_type:  "focused meditation"
+    - action: utter_audio
+    - intent: affirm
+    
+
+- story: user reports a craving
+  steps:
+    - intent: craving
+    - action: utter_support_message_craving
+    - action: utter_ask_choose_activity
+    - intent: affirm
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - slot_was_set:
+      - breathwork_type: "box breathing"
+    - action: utter_video
+    - intent: affirm
 # - story: interactive_story_1
 #   steps:
 #   - intent: start_introduction_form

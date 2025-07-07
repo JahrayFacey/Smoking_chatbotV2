@@ -8,15 +8,15 @@ rules:
   - action: utter_goodbye
 
 
-- rule: submit introduction form
-  condition:
-    - active_loop: introduction_form
-  steps:
-    - action: introduction_form
-    - active_loop: null
-    - slot_was_set:
-      - requested_slot: null
-    - action: utter_intro_congratulations
+# - rule: submit introduction form
+#   condition:
+#     - active_loop: introduction_form
+#   steps:
+#     - action: introduction_form
+#     - active_loop: null
+#     - slot_was_set:
+#       - requested_slot: null
+#     - action: utter_intro_congratulations
 
 - rule: skip introduction form if the slots have already been filled
   steps:
@@ -31,7 +31,10 @@ rules:
 - rule: user wants to create a new commitment
   steps:
     - intent: create_commitment
+    - action: commitment_form
     - active_loop: commitment_form
+    - active_loop: null
+    - action: action_save_commitment
 
 - rule: Submit commitment form
   condition:
@@ -40,4 +43,9 @@ rules:
     - action: commitment_form
     - active_loop: null
     - action: action_save_commitment
+
+- rule: show user commitment
+  steps:
+    - intent: show_commitment
+    - action: utter_commitment
 
