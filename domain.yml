@@ -9,16 +9,23 @@ intents:
   - mood_unhappy
   - start_introduction_form
   - create_commitment
+  - show_commitment
+  - relapsed
+  - craving
+  - choose_activity
 actions:
   # - action_introduction_form
   - validate_introduction_form
   - action_save_commitment
+  - action_show_commitment
 
 entities:
   - name
   - length_of_addiction
   - money_spent
   - reasons_for_change
+  - meditation_type
+  - breathwork_type
 
 slots:
   # completed_form:
@@ -57,19 +64,19 @@ slots:
   reasons_for_change:
     type: text
     mappings: 
-    - type: from_text
-      conditions:
-        - active_loop: introduction_form
-          requested_slot: reasons_for_change
+      - type: from_text
+        conditions:
+          - active_loop: introduction_form
+            requested_slot: reasons_for_change
   
   set_commitment:
-    type: list
+    type: text
     influence_conversation: False
     mappings:
-    - type: from_text
-      conditions:
-        - active_loop: commitment_form
-          requested_slot: set_commitment
+      - type: from_text
+        conditions:
+          - active_loop: commitment_form
+            requested_slot: set_commitment
   
   Location:
     type: text
@@ -102,6 +109,35 @@ slots:
         conditions:
           - active_loop: relapse_form
             requested_slot: feelings_after
+  
+  activity_type:
+    type: categorical
+    values:
+      - unguided
+      - guided
+    mappings:
+      - type: from_text
+
+  meditation_type:
+    type: categorical
+    values:
+      - focused meditation
+      - mindfulness meditation
+      - progressive relaxation
+    mappings:
+      - type: from_entity
+        entity: meditation_type
+    
+  breathwork_type:
+    type: categorical
+    values:
+      - deep abdominal breathing
+      - 4-7-8 breathing
+      - box breathing 
+    mappings:
+      - type: from_entity
+        entity: breathwork_type
+
 
 forms:
   introduction_form:
@@ -144,7 +180,7 @@ responses:
   - text: "Hey! Hope everything is going okay. My name is Paul and I'm glad you're here to start your path to freedom.\n Before we begin I would just like to ask a few questions. is that okay?"
 
   utter_ask_introduction_form_name:
-  - text: "What is your name"
+  - text: "What is your name?"
 
   utter_ask_introduction_form_length_of_addiction:
   - text: "How long have you been smoking for? Answer in days, weeks, months or years (e.g. 2 months)."
@@ -152,7 +188,7 @@ responses:
   utter_ask_introduction_form_money_spent:
   - text: "How much money do you spend on a pack of ciggarattes? Don't type in the currency sign"
 
-  utter_ask_set_commitment:
+  utter_question_commitment:
   - text: "Do you want to set a commitment {name}? Commitments can be a big motivator."
 
   utter_ask_introduction_form_reasons_for_change:
@@ -169,7 +205,7 @@ responses:
   - text: "You can set a commitment now. An example could be 'I am going to focus on things that are important'"
   
   utter_commitment:
-  - text: "Here's your commitment {name}. \"{commitment}\""
+  - text: "Here's your commitment {name}: {set_commitment}"
 
   utter_no_commitment:
   - text: "That's alright {name}! You can set a commitment at any time."
@@ -192,14 +228,26 @@ responses:
   utter_ask_relapse_form_feelings_after:
   - text: "Lastly, how did you feel after you had smoked?"
 
-  utter_relapse_form_completion:
+  utter_relapse_completion:
   - text: "Thank you for the answers. Now that you have identified a trigger we can now take steps to keep yourself grounded and smoke-free."
 
   utter_choose_activity:
-  - text: "choose an activity from the list alone."
+  - text: "choose an activity from the list alone. the options available are:\n meditation: focused, progressive relaxation, mindfulness, unguided\n breathwork: 4-7-8, abdominal, box, unguided"
 
   utter_ask_practise_activity:
   - text: "Would you like to practise it now?"
+
+  utter_ask_choose_activity:
+  - text: "Would you like an activity to get through this feeling?"
+  
+
+  utter_support_message_craving:
+  - text: "I know it's hard. It was for me aswell but trust and believe you are making the right decision. Your body will thank you."
+  - text: "It's important to remember that cravings come and go and there are lots of things to help distact."
+  - text: "You did the right thing by reporting. That alone you deserve an applause for and gives me confidence you can reach your goals."
+
+  utter_audio:
+  - text: "Would you like audio to help guide you?"
 
 session_config:
   session_expiration_time: 60
