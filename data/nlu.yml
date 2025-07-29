@@ -156,6 +156,9 @@ nlu:
     - I need a ciggarette 
     - It's hard to concentrate
     - My urge is strong
+    - need a cig
+    - fancy a smoke
+    - itching for a drag
 
 - intent: choose_activity
   examples: |
@@ -181,3 +184,31 @@ nlu:
     - i would like to try [focused meditation](meditation_type)
     - can we try some [focused meditation](meditation_type)
     - i would like some [focused meditation](meditation_type)
+
+- intent: perform_meditation
+  examples: |
+    - I would like to try meditation
+    - I want to perform meditation
+    - I want to try meditation
+    - can i practise meditation
+    - can we try meditation
+    - i would like to try meditation
+    - today i would like to use meditation
+    - i feel like doing some meditation
+    - can we have a quick meditation
+    - i need to meditate
+    - can you play a meditation?
+
+- intent: perform_breathwork
+  examples: |
+    - I would like to try breathwork
+    - I want to perform breathwork
+    - I want to try breathwork
+    - can i practise breath work
+    - can we try breathwork
+    - i would like to try breath work
+    - today i would like to use breathwork
+    - i feel like doing some breathwork
+    - can we have a quick breathwork
+    - i need to breathwork
+    - give me a breathing exercise 
