@@ -18,6 +18,8 @@ actions:
   - validate_introduction_form
   - action_save_commitment
   - action_show_commitment
+  - action_handle_meditation_type_no_audio
+  - action_handle_breathwork_types_no_audio
 
 entities:
   - name
@@ -26,6 +28,12 @@ entities:
   - reasons_for_change
   - meditation_type
   - breathwork_type
+  - 4-7-8 breathing
+  - box breathing
+  - abdominal breathing
+  - progressive relaxation
+  - focused meditation
+  - mindfulness meditation
 
 slots:
   # completed_form:
@@ -120,6 +128,7 @@ slots:
 
   meditation_type:
     type: categorical
+    influence_conversation: true
     values:
       - focused meditation
       - mindfulness meditation
@@ -130,8 +139,9 @@ slots:
     
   breathwork_type:
     type: categorical
+    influence_conversation: true
     values:
-      - deep abdominal breathing
+      - abdominal breathing
       - 4-7-8 breathing
       - box breathing 
     mappings:
@@ -239,6 +249,13 @@ responses:
 
   utter_ask_choose_activity:
   - text: "Would you like an activity to get through this feeling?"
+
+  utter_no_activity_smoking:
+  - text: "All good, general. I know you know the right thing to do so as they say 'just do it' :)"
+
+  utter_no_activity_craving:
+  - text: "That's okay. Remember cravings only last a couple of minutes and they're always a million things you can do apart smoking"
+  - text: "You're strong for coming to speak to me and recognising an issue. Maybe try doing some stretches or go for a walk"
   
 
   utter_support_message_craving:
@@ -248,6 +265,24 @@ responses:
 
   utter_audio:
   - text: "Would you like audio to help guide you?"
+
+  utter_audio_box_breathing:
+  - text: "Let's dive right in to a box_breathing exercise. (audio: box breathing)"
+
+  utter_audio_progressive_relaxation:
+  - text: "Let's dive right in to a progressive relaxation exercise. (audio: progressive relaxation)"
+
+  utter_audio_abdominal_breathing:
+  - text: "Lets head straight into abdominal breathing. (audio: abdominal breathing)"
+
+  utter_audio_focused_meditation:
+  - text: "Perfect, lets head straight into some focused meditation. (audio: focused meditation)"
+
+  utter_audio_4-7-8_breathing:
+  - text: "let's dive right into some 4-7-8 breathing then (audio: 4-7-8 breathing)"
+
+  utter_audio_mindfulness_meditation:
+  - text: "let's dive right into some mindfulness meditation (audio: mindfulness meditation)"
 
 session_config:
   session_expiration_time: 60
