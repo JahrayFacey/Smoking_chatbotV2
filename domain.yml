@@ -13,13 +13,20 @@ intents:
   - relapsed
   - craving
   - choose_activity
+  - perform_meditation
+  - perform_breathwork
+  - request_tobacco_information
+  - what_is_nicotine
+  - ask_for_quit_tips
 actions:
   # - action_introduction_form
   - validate_introduction_form
   - action_save_commitment
   - action_show_commitment
   - action_handle_meditation_type_no_audio
-  - action_handle_breathwork_types_no_audio
+  - action_handle_breathwork_type_no_audio
+  - action_handle_breathwork_type
+  - action_handle_meditation_type
 
 entities:
   - name
@@ -265,7 +272,28 @@ responses:
 
   utter_audio:
   - text: "Would you like audio to help guide you?"
+  
+  utter_choose_meditation:
+  - text: "A quick meditation doesn't hurt. Please select from the following options: "
+    buttons:
+    - title: "focused meditation"
+      payload: '/choose_activity{{"meditation":"focused meditation"}}'
+    - title: "progressive relaxation"
+      payload: '/choose_activity{{"meditation": "progressive relaxation"}}'
+    - title: "mindfulness meditation"
+      payload: '/choose_activity{{"meditation":"mindfulness meditation"}}'
+    
+  utter_choose_breathwork:
+  - text: "A quick meditation doesn't hurt. Please select from the following options: "
+    buttons:
+    - title: "4-7-8 breathing"
+      payload: '/choose_activity{{"breathwork_type":"4-7-8 breathing"}}'
+    - title: "box breathing"
+      payload: '/choose_activity{{"breathwork_type": "box breathing"}}'
+    - title: "abdominal breathing"
+      payload: '/choose_activity{{"breathwork_type":"abdominal breathing"}}'
 
+  
   utter_audio_box_breathing:
   - text: "Let's dive right in to a box_breathing exercise. (audio: box breathing)"
 
@@ -283,6 +311,15 @@ responses:
 
   utter_audio_mindfulness_meditation:
   - text: "let's dive right into some mindfulness meditation (audio: mindfulness meditation)"
+
+  utter_what_nicotine_is:
+  - text: "Nicotine is a addictive substance found in tobacco products. Ciggerates have serveral chemicals but nicotine has the most impact. It creates a pleasant, relaxing feeling for users because it releases endorphins which are chemicals that improve mood. It also triggers dopamine that is a part of the brain's reward system and increases heart rate. The effects of nicotine are powerful but quick which leads to a cycle of chasing that feeling."
+  - text: "Nicotine is very harmful and has loads of negative effects on almost every part of the body. Continued smoking can lead to heart disease, stroke and lung cancer. Prolonged consumption of nicotine can lead to nicotine dependence. A 2020 study found that 23.6 million people aged 12 and above suffered from nicotine dependence. The body also adapts to nicotine after a while, requiring more to get the same effect as the first time trying it."
+  
+  utter_tobacco_info:
+  - text: "Tobacco contains nicotine, which is addictive and can harm your lungs, heart, and overall health. Quitting helps your body heal almost immediately—circulation improves in 24 hours, and lung function starts recovering in weeks."
+  utter_quit_tips:
+  - text: "Try to identify your triggers and replace them with healthier habits like deep breathing, drinking water, or short walks. Keeping your hands busy can help too—stress balls, chewing gum, or even journaling."
 
 session_config:
   session_expiration_time: 60
