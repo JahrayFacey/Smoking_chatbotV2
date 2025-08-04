@@ -157,7 +157,7 @@ class ActionHandleMeditationtypesNoAudio(Action):
     
 class ActionHandleBreathworktypesNoAudio(Action):
     def name(self):
-        return 'action_handle_breathwork_types_no_audio'
+        return 'action_handle_breathwork_type_no_audio'
     
     def run(self, dispatcher, domain, tracker):
         breathwork_type = Tracker.get_slot("breathwork_type")
@@ -209,7 +209,7 @@ class ActionHandleMeditationType(Action):
 
 class ActionHandleBreathworkTypesAudio(Action):
     def name(Self):
-        return 'action_handle_breathwork_type_audio'
+        return 'action_handle_breathwork_type'
     
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict):
         breathwork_type = tracker.get_slot("breathwork_type")

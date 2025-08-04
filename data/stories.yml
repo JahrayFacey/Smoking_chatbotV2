@@ -106,7 +106,7 @@ stories:
       - breathwork_type: "box breathing"
     - action: utter_audio
     - intent: deny
-    - action: action_handle_breathwork_types_no_audio
+    - action: action_handle_breathwork_type_no_audio
 
 - story: user chooses an activty after reported craving(no audio)/sad path
   steps:
@@ -123,9 +123,98 @@ stories:
       - breathwork_type: "box breathing"
     - action: utter_audio
     - intent: affirm
-    - action: action_handle_breathwork_types
+    - action: action_handle_breathwork_type
 
-- story: user chooses an activity after reported craving(audio)
+- story: user chooses an activity after reported craving(audio)/ sad path
+  steps:
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - slot_was_set:
+      - breathwork_type: "box breathing"
+    - action: utter_audio
+    - intent: deny
+    - action: action_handle_breathwork_type_no_audio
+
+- story: user chooses an activity after they had reported smoking(audio)/happy path
+  steps:
+    - action: utter_relapse_completion
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - slot_was_set:
+      - meditation_type:  "focused meditation"
+    - action: utter_audio
+    - intent: affirm
+    - action: action_handle_meditation_type
+
+- story: user chooses an activity after they had reported smoking(audio)/sad path
+  steps:
+    - action: utter_relapse_completion
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - slot_was_set:
+      - meditation_type:  "focused meditation"
+    - action: utter_audio
+    - intent: deny
+    - action: action_handle_meditation_type_no_audio
+
+- story: request meditation with no audio
+  steps:
+    - intent: perform_meditation
+    - action: utter_choose_meditation
+    - intent: choose_activity
+    - slot_was_set:
+      - meditation_type: "focused meditation"
+    - action: utter_audio
+    - intent: deny
+    - action: action_handle_meditation_type_no_audio
+
+- story: request meditation with audio
+  steps:
+    - intent: perform_meditation
+    - action: utter_choose_meditation
+    - intent: choose_activity
+    - slot_was_set:
+      - meditation_type: "focused meditation"
+    - action: utter_audio
+    - intent: affirm
+    - action: action_handle_meditation_type
+
+- story: request breathwork with no audio
+  steps:
+    - intent: perform_breathwork
+    - action: utter_choose_breathwork
+    - intent: choose_activity
+    - slot_was_set:
+      - breathwork_type: "box breathing"
+    - action: utter_audio
+    - intent: deny
+    - action: action_handle_breathwork_type_no_audio
+
+- story: request breathwork with audio
+  steps:
+    - intent: perform_breathwork
+    - action: utter_choose_breathwork
+    - intent: choose_activity
+    - slot_was_set:
+      - breathwork_type: "box breathing"
+    - action: utter_audio
+    - intent: affirm
+    - action: action_handle_breathwork_type
+
+- story: request tobacco information
+  steps:
+    - intent: request_tobacco_information
+    - action: utter_tobacco_info
+
+- story: request nicotine information
+  steps:
+    - intent: what_is_nicotine
+    - action: utter_what_nicotine_is
+
+- story: provide quit tips when asked.
+  steps:
+    - intent: ask_for_quit_tips
+    - action: utter_quit_tips
 
 
 # - story: interactive_story_1

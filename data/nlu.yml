@@ -211,4 +211,27 @@ nlu:
     - i feel like doing some breathwork
     - can we have a quick breathwork
     - i need to breathwork
-    - give me a breathing exercise 
+    - give me a breathing exercise
+
+- intent: what_is_nicotine
+  examples: |
+    - what is nicotine?
+    - what are the effects of nicotine?
+    - what is nicotine doing to me exactly?
+    - what exactly is nicotine?
+    - I'm interested learning about nicotine
+    - I'm curious about nicotine
+    - I want to learn about nicotine and it's effects
+
+- intent: request_tobacco_information
+  examples: |
+    - I want to learn about tobacco
+    - I'm curious about tobacco
+    - I would like to learn about tobacco
+    - what does tobacco do to your body
+
+- intent: ask_for_quit_tips
+  examples: |
+    - How can I stop cravings?
+    - Any tips to quit smoking
+    - What should I do instead of smoking
