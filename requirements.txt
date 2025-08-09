@@ -4,6 +4,7 @@ rasa-sdk==3.6.2
 
 # Frontend
 streamlit==1.32.0
+streamlit-lottie
 
 # HTTP requests (frontend to Rasa API)
 requests==2.31.0

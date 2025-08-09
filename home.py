@@ -13,7 +13,7 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_coding = load_lottiefile(r"C:\Users\Jahray\Documents\Smoking chatbot\assets\No_smoking.json")
+lottie_coding = load_lottiefile(r"assets\No_smoking.json")
 
 with st.container():
     left_column, middle, right_column = st.columns(3, gap="large")
