@@ -3,8 +3,8 @@ rasa==3.6.2
 rasa-sdk==3.6.2
 
 # Frontend
-streamlit==1.32.0
-streamlit-lottie
+streamlit==1.47.0
+streamlit-lottie==0.0.5
 
 # HTTP requests (frontend to Rasa API)
 requests==2.31.0
@@ -12,3 +12,4 @@ requests==2.31.0
 # Utilities
 pydantic==1.10.7
 python-dotenv==1.0.0
+pyyaml==5.4.1
