@@ -69,7 +69,7 @@ with st.container():
             unsafe_allow_html=True
         )
         # st.header("Try us out now :arrow_down:")
-        st.link_button(label="Chat", url=r"C:\Users\Jahray\Documents\Smoking chatbot\messaging_app.py", type="primary", icon=None, use_container_width=True)
+        st.link_button(label="Chat", url=r"/messaging_app", type="primary", icon=None, use_container_width=True)
         st.write("##")
     st.markdown("<p style='text-align: center;'>Website and chatbot under development</p>", unsafe_allow_html=True)
     
