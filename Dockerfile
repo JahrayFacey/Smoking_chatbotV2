@@ -25,10 +25,8 @@ RUN pip install --no-cache-dir "pyyaml==5.4.1" --only-binary :all:
 RUN pip install --no-cache-dir -r requirements.txt
 
 
-RUN rasa train
-
 
 EXPOSE 8501 5005
 
 
-CMD rasa run --enable-api --cors "*" & streamlit run home.py --server.port=8501 --server.address=0.0.0.0
+CMD rasa run --enable-api --cors "*" --port 5005 --model models & streamlit run home.py --server.port=8501 --server.address=0.0.0.0
