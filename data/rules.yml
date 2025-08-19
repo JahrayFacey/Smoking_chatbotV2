@@ -43,6 +43,8 @@ rules:
     - action: commitment_form
     - active_loop: null
     - action: action_save_commitment
+    - action: utter_explain_role
+    - action: action_smoking_tracker
 
 - rule: show user commitment
   steps:

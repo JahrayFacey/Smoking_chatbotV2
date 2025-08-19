@@ -6,7 +6,7 @@
 
 
 # This is a simple example for a custom action which utters "Hello World!"
-
+import asyncio
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker, FormValidationAction
@@ -14,6 +14,8 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 from rasa_sdk.events import SlotSet, SessionStarted, ActionExecuted, EventType
 import re
+from datetime import datetime, date
+import json
 
 
 # class ActionIntroductionForm(FormAction):
@@ -124,97 +126,168 @@ class ActionShowCommitment(Action):
             dispatcher.utter_message(text="You haven't set a commitment yet.")
         return []
 
-class ActionHandleMeditationtypesNoAudio(Action):
+class ActionHandleActivitytypeNoAudio(Action):
     def name(self):
-        return "action_handle_meditation_type_no_audio"
+        return "action_handle_activity_type_no_audio"
     
     def run(self, dispatcher, tracker, domain):
         meditation_type = tracker.get_slot("meditation_type")
-        if meditation_type == "focused meditation":
-            dispatcher.utter_message(text="Let's begin focused meditation.")
-            dispatcher.utter_message(text="Choose a focal point, such as your breath, a candle flame, or a sound.")
-            dispatcher.utter_message(text="Bring your attention to the focal point, noticing its sensations.")
-            dispatcher.utter_message(text="When your mind wanders, gently bring it back to the focal point.")
-            dispatcher.utter_message(text="Continue for a few minutes, maintaining your focus.")
-        elif meditation_type == "progressive relaxation":
-            dispatcher.utter_message(text="Let's begin progressive relaxation.")
-            dispatcher.utter_message(text="Find a comfortable position.")
-            dispatcher.utter_message(text="Start by tensing the muscles in your toes for 5 seconds, then release them.")
-            dispatcher.utter_message(text="Move up your body, tensing and releasing each muscle group: feet, calves, thighs, buttocks, abdomen, chest, hands, arms, shoulders, neck, and face.")
-            dispatcher.utter_message(text="Focus on the feeling of relaxation as you release each muscle group.")
-            dispatcher.utter_message(text="Continue for a few minutes, allowing your body to fully relax.")
-        elif meditation_type == "mindfulness meditation":
-            dispatcher.utter_message(text="Let's begin mindfulness meditation.")
-            dispatcher.utter_message(text="Find a comfortable position, either sitting or lying down.")
-            dispatcher.utter_message(text="Close your eyes or keep them softly focused on a point in front of you.")
-            dispatcher.utter_message(text="Bring your attention to your breath, noticing the sensation of each inhale and exhale.")
-            dispatcher.utter_message(text="When your mind wanders, gently bring it back to your breath.")
-            dispatcher.utter_message(text="Continue for a few minutes, allowing yourself to simply observe your thoughts and feelings without judgment.")
-            dispatcher.utter_message(text="When you're ready, slowly open your eyes.")
-        else: dispatcher.utter_message(text="Sorry we haven't got that available.")
+        breathwork_type = tracker.get_slot("breathwork_type")
+        if meditation_type:
+            if meditation_type == "focused meditation":
+                dispatcher.utter_message(text="Let's begin focused meditation.")
+                dispatcher.utter_message(text="Choose a focal point, such as your breath, a candle flame, or a sound.")
+                dispatcher.utter_message(text="Bring your attention to the focal point, noticing its sensations.")
+                dispatcher.utter_message(text="When your mind wanders, gently bring it back to the focal point.")
+                dispatcher.utter_message(text="Continue for a few minutes, maintaining your focus.")
+            elif meditation_type == "progressive relaxation":
+                dispatcher.utter_message(text="Let's begin progressive relaxation.")
+                dispatcher.utter_message(text="Find a comfortable position.")
+                dispatcher.utter_message(text="Start by tensing the muscles in your toes for 5 seconds, then release them.")
+                dispatcher.utter_message(text="Move up your body, tensing and releasing each muscle group: feet, calves, thighs, buttocks, abdomen, chest, hands, arms, shoulders, neck, and face.")
+                dispatcher.utter_message(text="Focus on the feeling of relaxation as you release each muscle group.")
+                dispatcher.utter_message(text="Continue for a few minutes, allowing your body to fully relax.")
+            elif meditation_type == "mindfulness meditation":
+                dispatcher.utter_message(text="Let's begin mindfulness meditation.")
+                dispatcher.utter_message(text="Find a comfortable position, either sitting or lying down.")
+                dispatcher.utter_message(text="Close your eyes or keep them softly focused on a point in front of you.")
+                dispatcher.utter_message(text="Bring your attention to your breath, noticing the sensation of each inhale and exhale.")
+                dispatcher.utter_message(text="When your mind wanders, gently bring it back to your breath.")
+                dispatcher.utter_message(text="Continue for a few minutes, allowing yourself to simply observe your thoughts and feelings without judgment.")
+                dispatcher.utter_message(text="When you're ready, slowly open your eyes.")
+            else: dispatcher.utter_message("Sorry, we don't have that one.")
 
-        return []
-    
-class ActionHandleBreathworktypesNoAudio(Action):
-    def name(self):
-        return 'action_handle_breathwork_type_no_audio'
-    
-    def run(self, dispatcher, domain, tracker):
-        breathwork_type = Tracker.get_slot("breathwork_type")
-        if breathwork_type == "box breathing":
-            dispatcher.utter_message(text="Let's try box breathing, also known as square breathing.")
-            dispatcher.utter_message(text="Exhale completely, pushing all the air out of your lungs.")
-            dispatcher.utter_message(text="Inhale slowly and deeply through your nose to a count of four.")
-            dispatcher.utter_message(text="Hold your breath for a count of four.")
-            dispatcher.utter_message(text="Exhale slowly through your mouth to a count of four.")
-            dispatcher.utter_message(text="Hold your breath again for a count of four.")
-            dispatcher.utter_message(text="Repeat this cycle for a few minutes.")
-            dispatcher.utter_message(text="Take a moment to observe how you feel.")
-        elif breathwork_type == "4-7-8 breathing":
-            dispatcher.utter_message(text="Let's try the 4-7-8 breathing technique.")
-            dispatcher.utter_message(text="First, exhale completely through your mouth, making a whooshing sound.")
-            dispatcher.utter_message(text="Close your mouth and inhale quietly through your nose to a count of four.")
-            dispatcher.utter_message(text="Hold your breath for a count of seven.")
-            dispatcher.utter_message(text="Exhale completely through your mouth, making a whooshing sound to a count of eight.")
-            dispatcher.utter_message(text="This is one breath. Now repeat the cycle three more times for a total of four breaths.")
-            dispatcher.utter_message(text="Notice any changes in how you feel.")
-        elif breathwork_type == "abdominal breathing":
-            dispatcher.utter_message(text="Let's try abdominal breathing. Place one hand on your chest and the other on your belly.")
-            dispatcher.utter_message(text="Inhale slowly and deeply through your nose, feeling your belly rise more than your chest.")
-            dispatcher.utter_message(text="Exhale slowly through your mouth, feeling your belly fall.")
-            dispatcher.utter_message(text="Continue this for a few minutes, focusing on your breath.")
-            dispatcher.utter_message(text="How do you feel now?")
-        else:
-            dispatcher.utter_message(text="Sorry we haven't got that available.")
-        return []
-    
+        elif breathwork_type:
+            if breathwork_type == "box breathing":
+                dispatcher.utter_message(text="Let's try box breathing, also known as square breathing.")
+                dispatcher.utter_message(text="Exhale completely, pushing all the air out of your lungs.")
+                dispatcher.utter_message(text="Inhale slowly and deeply through your nose to a count of four.")
+                dispatcher.utter_message(text="Hold your breath for a count of four.")
+                dispatcher.utter_message(text="Exhale slowly through your mouth to a count of four.")
+                dispatcher.utter_message(text="Hold your breath again for a count of four.")
+                dispatcher.utter_message(text="Repeat this cycle for a few minutes.")
+                dispatcher.utter_message(text="Take a moment to observe how you feel.")
+            elif breathwork_type == "4-7-8 breathing":
+                dispatcher.utter_message(text="Let's try the 4-7-8 breathing technique.")
+                dispatcher.utter_message(text="First, exhale completely through your mouth, making a whooshing sound.")
+                dispatcher.utter_message(text="Close your mouth and inhale quietly through your nose to a count of four.")
+                dispatcher.utter_message(text="Hold your breath for a count of seven.")
+                dispatcher.utter_message(text="Exhale completely through your mouth, making a whooshing sound to a count of eight.")
+                dispatcher.utter_message(text="This is one breath. Now repeat the cycle three more times for a total of four breaths.")
+                dispatcher.utter_message(text="Notice any changes in how you feel.")
+            elif breathwork_type == "abdominal breathing":
+                dispatcher.utter_message(text="Let's try abdominal breathing. Place one hand on your chest and the other on your belly.")
+                dispatcher.utter_message(text="Inhale slowly and deeply through your nose, feeling your belly rise more than your chest.")
+                dispatcher.utter_message(text="Exhale slowly through your mouth, feeling your belly fall.")
+                dispatcher.utter_message(text="Continue this for a few minutes, focusing on your breath.")
+                dispatcher.utter_message(text="How do you feel now?")
+            else:
+                dispatcher.utter_message(text="Sorry we haven't got that available.")
+            return []
+        
 
-class ActionHandleMeditationType(Action):
+class ActionHandleActivityType(Action):
     def name(self):
-        return 'action_handle_meditation_type'
+        return 'action_handle_activity_type'
     
     def run(self, dispatcher: CollectingDispatcher, domain, tracker: Tracker):
         meditation_type = tracker.get_slot("meditation_type")
-        if meditation_type == "focused meditation":
-            dispatcher.utter_message("Now Playing... (audio: box_breathing)")
-        elif meditation_type == "progressive relaxation":
-            dispatcher.utter_message("Now playing... (audio: progressive_relaxation)")
-        elif meditation_type == "mindfulness meditation":
-            dispatcher.utter_message("Now playing... (audio: mindfulness_meditation)")
-
-        else:
-            dispatcher.utter_message(text="Sorry, don't have audio for that.")
-        return []
-
-
-class ActionHandleBreathworkTypesAudio(Action):
-    def name(Self):
-        return 'action_handle_breathwork_type'
-    
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict):
         breathwork_type = tracker.get_slot("breathwork_type")
+        if meditation_type:
+            if meditation_type == "focused meditation":
+                dispatcher.utter_message("Now Playing... (audio: focused meditation)")
+            elif meditation_type == "progressive relaxation":
+                dispatcher.utter_message("Now playing... (audio: progressive relaxation)")
+            elif meditation_type == "mindfulness meditation":
+                dispatcher.utter_message("Now playing... (audio: mindfulness meditation)")
 
+            else:
+                dispatcher.utter_message(text="Sorry, don't have audio for that.")
+        elif breathwork_type:
+            if breathwork_type == "box breathing":
+                dispatcher.utter_message(text="Now playing... (audio: box_breathing)")
+            elif breathwork_type == "4-7-8 breathing":
+                dispatcher.utter_message(text="Now playing... (audio: 4-7-8_breathing)")
+            elif breathwork_type == "abdominal breathing":
+                dispatcher.utter_message(text="Now playing... (audio: abdominal_breathing)")
+            else:
+                dispatcher.utter_message(text="Sorry, I don't have audio for that.")
+            return []
 
+class ActionSmokingTracker(Action):
+    def name(self):
+        return 'action_smoking_tracker'
+    
+    def run(Self, dispatecher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_id = tracker.sender_id
+        Data_file = "smoking_tracker_data.json"
+
+        user_data = {
+            "start_date": str(date.today()),
+            "cost_per_pack": tracker.get_slot("money_spent")
+        }
+
+        try:
+            with open(Data_file, "r") as f:
+                data = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = {}
+        
+        data[user_id] = user_data
+
+        with open(Data_file, "w") as f:
+            json.dump(data, f)
+        
+        return []
+class ActionShowTracker(Action):
+    def name(self):
+        return "action_show_tracker"
+    
+    def run(Self, dispatecher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_id = tracker.sender_id
+        Data_file = "smoking_tracker_data.json"
+        Celebrate_emoji = "\U0001F389"
+        hands_up_emoji = "\U0001F64C"
+        flex_emoji = "\U0001F4AA"
+
+        try:
+            with open(Data_file, "r") as f:
+                data = json.load(f)
+                user_data = data.get(user_id)
+        except (FileNotFoundError, json.JSONDecodeError):
+            user_data = None
+
+        start_date = datetime.strptime(user_data["start_date"], "%d/%m/%Y").date()
+        days_gone = (date.today() - start_date).days
+
+        cost_per_pack = float(user_data.get("cost_per_pack", 0))
+        # 11 refers to the average amount of ciggerates smoked per day by a smoker in the UK
+        # 20 refers to the average amount of ciggerates per pack
+        money_saved = (11 / 20 ) * cost_per_pack * days_gone
+        cigs_not_smoked = 11 * days_gone
+
+        dispatecher.utter_message(f"You have been smoke-free for {days_gone} days! {Celebrate_emoji}")
+        dispatecher.utter_message(f"This means that you have saved approximately £{money_saved:.2f} and stopped yourself from smoking {cigs_not_smoked:.0f} cigarettes./n Your progress is clear to see. Keep it up!")
+
+        if days_gone == 1:
+            dispatecher.utter_message("Big up! That means your heart rate and blood pressure has already returnd to normal.")
+            dispatecher.utter_message("Just a day and you're already much healthier!")
+        
+        elif days_gone == 2:
+            dispatecher.utter_message("You know Carbon Monoxide? That gas that prevents oxygen delivery and increases the chance of heart disease?")
+            dispatecher.utter_message("Guess what? It's gone! Every day that passes is changing you for the better!")
+        
+        elif days_gone == 3:
+            dispatecher.utter_message(f"Your lungs have started repairing themselves. Breathing is going to be alot easier on your body {hands_up_emoji}.")
+        
+        elif days_gone == 7:
+            dispatecher.utter_message(f"That first week is done. You should feel really proud of yourself. Your strength is admirable {flex_emoji}. ")
+            dispatecher.utter_message("Try tapping into your senses today. Your sense of taste and smell should be improving.")
+
+        elif days_gone == 14:
+            dispatecher.utter_message(f"Another week done and dusted {Celebrate_emoji}. Your circulation and lungs are improving.")
+
+        return []
 
 
 

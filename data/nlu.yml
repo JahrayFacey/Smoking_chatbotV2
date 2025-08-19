@@ -120,6 +120,7 @@ nlu:
     - can i create a new commitment
     - I want to make a commitment
     - I think I want to make a new commitment
+    - can i set a commitment
 
 - intent: show_commitment
   examples: |
@@ -235,3 +236,10 @@ nlu:
     - How can I stop cravings?
     - Any tips to quit smoking
     - What should I do instead of smoking
+
+
+- intent: show_tracker
+  examples: |
+    - How am I doing?
+    - Show my progress
+    - How many days have passed.

@@ -19,9 +19,8 @@ RUN apt-get update && apt-get install -y \
 COPY . /app
 
 
-RUN pip install --no-cache-dir --upgrade pip]
+RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir "pyyaml==5.4.1" --only-binary :all:
-RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5055
 CMD ["run", "actions", "--port", "5055"]

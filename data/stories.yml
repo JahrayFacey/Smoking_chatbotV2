@@ -29,38 +29,38 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-- story: activate introduction form
+
+- story: Congratulate the user on completing the intro form and then ask about setting a commitment
   steps:
     - intent: start_introduction_form
     - action: utter_introduction
     - action: introduction_form
-    - active_loop: introduction_form
+    - active_loop: null
     - action: utter_intro_congratulations
-    - action: utter_question_commitment
-
-# - story: Congratulate the user on completing the intro form and then ask about setting a commitment
-#   steps:
-#     - action: introduction_form
-#     - active_loop: null
-#     - action: utter_intro_congratulations
-#     - action: utter_question_commitment
-
-- story: ask user if they would like to set a commitment after completing the intro form/happy path
-  steps:
     - action: utter_question_commitment
     - intent: affirm
     - action: commitment_form
     - active_loop: commitment_form
     - active_loop: null
     - action: action_save_commitment
+    - action: utter_explain_role
+    - action: action_smoking_tracker
 
-- story: ask user if they would like to set a commitment after completing the intro form/Sad path
+- story: activate intro form and deny commitment
   steps:
+    - intent: start_introduction_form
+    - action: utter_introduction
+    - action: introduction_form
+    - active_loop: introduction_form
+    - active_loop: null
+    - action: utter_intro_congratulations
     - action: utter_question_commitment
     - intent: deny
     - action: utter_no_commitment
+    - action: utter_explain_role
+    - action: action_smoking_tracker
 
-- story: user reports that they smoked 
+- story: user reports that they smoked and chooses activity practise(no audio)
   steps:
     - intent: relapsed
     - action: utter_support_message_1
@@ -70,92 +70,79 @@ stories:
     - active_loop: relapse_form
     - active_loop: null
     - action: utter_relapse_completion
+    - action: utter_choose_activity
+    - intent: choose_activity
+    - action: utter_audio
+    - intent: deny
+    - action: action_handle_activity_type_no_audio
+    - action: utter_activity_completion
     
-- story: user chooses an activity after they had reported smoking(no audio)/happy path
+- story: user chooses an activity after they had reported smoking(audio)
   steps:
+    - intent: relapsed
+    - action: utter_support_message_1
+    - action: utter_relapse_form
+    - intent: affirm
+    - action: relapse_form
+    - active_loop: relapse_form
+    - active_loop: null
     - action: utter_relapse_completion
     - action: utter_choose_activity
     - intent: choose_activity
-    - slot_was_set:
-      - meditation_type:  "focused meditation"
     - action: utter_audio
-    - intent: deny
-    - action: action_handle_meditation_type_no_audio
+    - intent: affirm
+    - action: action_handle_activity_type
+    - action: utter_activity_completion
 
-- story: user chooses an activity after they had reported smoking(no audio)/sad path
+- story: user denies an activity after they had reported smoking
   steps:
+    - intent: relapsed
+    - action: utter_support_message_1
+    - action: utter_relapse_form
+    - intent: affirm
+    - action: relapse_form
+    - active_loop: relapse_form
+    - active_loop: null
     - action: utter_relapse_completion
     - action: utter_choose_activity
     - intent: deny
     - action: utter_no_activity_smoking
     
 
-- story: user reports a craving
+- story: user reports a craving and chooses activity (no audio)
   steps:
     - intent: craving
     - action: utter_support_message_craving
     - action: utter_ask_choose_activity
     - intent: affirm
     - action: utter_choose_activity
-
-- story: user chooses an activty after reported craving(no audio)/happy path
-  steps:
-    - action: utter_choose_activity
     - intent: choose_activity
-    - slot_was_set:
-      - breathwork_type: "box breathing"
     - action: utter_audio
     - intent: deny
-    - action: action_handle_breathwork_type_no_audio
+    - action: action_handle_activity_type_no_audio
+    - action: utter_activity_completion
+  
 
-- story: user chooses an activty after reported craving(no audio)/sad path
+- story: user denies an activty after reported craving
   steps:
-    - action: utter_choose_activity
-    - intent: choose_activity
+    - intent: craving
+    - action: utter_support_message_craving
+    - action: utter_ask_choose_activity
     - intent: deny
     - action: utter_no_activity_craving
 
 - story: user chooses an activty after reported craving(audio)/happy path
   steps:
+    - intent: craving
+    - action: utter_support_message_craving
+    - action: utter_ask_choose_activity
+    - intent: affirm
     - action: utter_choose_activity
     - intent: choose_activity
-    - slot_was_set:
-      - breathwork_type: "box breathing"
     - action: utter_audio
     - intent: affirm
-    - action: action_handle_breathwork_type
-
-- story: user chooses an activity after reported craving(audio)/ sad path
-  steps:
-    - action: utter_choose_activity
-    - intent: choose_activity
-    - slot_was_set:
-      - breathwork_type: "box breathing"
-    - action: utter_audio
-    - intent: deny
-    - action: action_handle_breathwork_type_no_audio
-
-- story: user chooses an activity after they had reported smoking(audio)/happy path
-  steps:
-    - action: utter_relapse_completion
-    - action: utter_choose_activity
-    - intent: choose_activity
-    - slot_was_set:
-      - meditation_type:  "focused meditation"
-    - action: utter_audio
-    - intent: affirm
-    - action: action_handle_meditation_type
-
-- story: user chooses an activity after they had reported smoking(audio)/sad path
-  steps:
-    - action: utter_relapse_completion
-    - action: utter_choose_activity
-    - intent: choose_activity
-    - slot_was_set:
-      - meditation_type:  "focused meditation"
-    - action: utter_audio
-    - intent: deny
-    - action: action_handle_meditation_type_no_audio
+    - action: action_handle_activity_type
+    - action: utter_activity_completion
 
 - story: request meditation with no audio
   steps:
@@ -163,10 +150,11 @@ stories:
     - action: utter_choose_meditation
     - intent: choose_activity
     - slot_was_set:
-      - meditation_type: "focused meditation"
+      - meditation_type
     - action: utter_audio
     - intent: deny
-    - action: action_handle_meditation_type_no_audio
+    - action: action_handle_activity_type_no_audio
+    - action: utter_activity_completion
 
 - story: request meditation with audio
   steps:
@@ -174,10 +162,11 @@ stories:
     - action: utter_choose_meditation
     - intent: choose_activity
     - slot_was_set:
-      - meditation_type: "focused meditation"
+      - meditation_type
     - action: utter_audio
     - intent: affirm
-    - action: action_handle_meditation_type
+    - action: action_handle_activity_type
+    - action: utter_activity_completion
 
 - story: request breathwork with no audio
   steps:
@@ -185,10 +174,11 @@ stories:
     - action: utter_choose_breathwork
     - intent: choose_activity
     - slot_was_set:
-      - breathwork_type: "box breathing"
+      - breathwork_type
     - action: utter_audio
     - intent: deny
-    - action: action_handle_breathwork_type_no_audio
+    - action: action_handle_activity_type
+    - action: utter_activity_completion
 
 - story: request breathwork with audio
   steps:
@@ -196,10 +186,11 @@ stories:
     - action: utter_choose_breathwork
     - intent: choose_activity
     - slot_was_set:
-      - breathwork_type: "box breathing"
+      - breathwork_type
     - action: utter_audio
     - intent: affirm
-    - action: action_handle_breathwork_type
+    - action: action_handle_activity_type
+    - action: utter_activity_completion
 
 - story: request tobacco information
   steps:
@@ -215,6 +206,11 @@ stories:
   steps:
     - intent: ask_for_quit_tips
     - action: utter_quit_tips
+
+- story: user asks to see progress
+  steps:
+  - intent: show_tracker
+  - action: action_show_tracker
 
 
 # - story: interactive_story_1
