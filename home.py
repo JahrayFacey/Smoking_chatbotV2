@@ -13,7 +13,7 @@ def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
 
-lottie_coding = load_lottiefile("assets\No_smoking.json")
+lottie_coding = load_lottiefile(r"assets\No_smoking.json")
 
 with st.container():
     left_column, middle, right_column = st.columns(3, gap="large")
@@ -69,8 +69,7 @@ with st.container():
             unsafe_allow_html=True
         )
         # st.header("Try us out now :arrow_down:")
-        st.link_button(label="Chat", url=r"/messaging_app.py", type="primary", icon=None, use_container_width=True)
+        st.link_button(label="Chat", url=r"pages\messaging_app.py", type="primary", icon=None, use_container_width=True)
         st.write("##")
     st.markdown("<p style='text-align: center;'>Website and chatbot under development</p>", unsafe_allow_html=True)
-
     

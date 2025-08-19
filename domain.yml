@@ -18,15 +18,20 @@ intents:
   - request_tobacco_information
   - what_is_nicotine
   - ask_for_quit_tips
+  - show_tracker
 actions:
   # - action_introduction_form
   - validate_introduction_form
   - action_save_commitment
   - action_show_commitment
-  - action_handle_meditation_type_no_audio
-  - action_handle_breathwork_type_no_audio
-  - action_handle_breathwork_type
-  - action_handle_meditation_type
+  # - action_handle_meditation_type_no_audio
+  # - action_handle_breathwork_type_no_audio
+  - action_handle_activity_type_no_audio
+  # - action_handle_breathwork_type
+  # - action_handle_meditation_type
+  - action_handle_activity_type
+  - action_show_tracker
+  - action_smoking_tracker
 
 entities:
   - name
@@ -124,33 +129,17 @@ slots:
         conditions:
           - active_loop: relapse_form
             requested_slot: feelings_after
-  
-  activity_type:
-    type: categorical
-    values:
-      - unguided
-      - guided
-    mappings:
-      - type: from_text
 
   meditation_type:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - focused meditation
-      - mindfulness meditation
-      - progressive relaxation
     mappings:
       - type: from_entity
         entity: meditation_type
     
   breathwork_type:
-    type: categorical
+    type: text
     influence_conversation: true
-    values:
-      - abdominal breathing
-      - 4-7-8 breathing
-      - box breathing 
     mappings:
       - type: from_entity
         entity: breathwork_type
@@ -277,11 +266,11 @@ responses:
   - text: "A quick meditation doesn't hurt. Please select from the following options: "
     buttons:
     - title: "focused meditation"
-      payload: '/choose_activity{{"meditation":"focused meditation"}}'
+      payload: '/choose_activity{{"meditation_type":"focused meditation"}}'
     - title: "progressive relaxation"
-      payload: '/choose_activity{{"meditation": "progressive relaxation"}}'
+      payload: '/choose_activity{{"meditation_type": "progressive relaxation"}}'
     - title: "mindfulness meditation"
-      payload: '/choose_activity{{"meditation":"mindfulness meditation"}}'
+      payload: '/choose_activity{{"meditation_type":"mindfulness meditation"}}'
     
   utter_choose_breathwork:
   - text: "A quick meditation doesn't hurt. Please select from the following options: "
@@ -320,7 +309,11 @@ responses:
   - text: "Tobacco contains nicotine, which is addictive and can harm your lungs, heart, and overall health. Quitting helps your body heal almost immediately—circulation improves in 24 hours, and lung function starts recovering in weeks."
   utter_quit_tips:
   - text: "Try to identify your triggers and replace them with healthier habits like deep breathing, drinking water, or short walks. Keeping your hands busy can help too—stress balls, chewing gum, or even journaling."
-
+  utter_activity_completion:
+  - text: "Hope that activity went well for you. You can repeat it at anytime."
+  - text: "Great work for completing that activity. There is 100s things you can do to relive urges. You're doing the right thing."
+  utter_explain_role:
+  - text: "You can come to me anytime to have a nice little chit-chat, gain advice and practise techniques to keep your mind strong."
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
