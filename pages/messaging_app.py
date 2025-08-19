@@ -44,17 +44,18 @@ if response.status_code == 200:
                     st.markdown(bot_message)
 
             if "box breathing" in bot_message.lower():
-                st.audio("audio/box_breathing.m4a", format="audio.m4a")
+                st.audio("audio/box_breathing.m4a", format="audio/m4a")
             elif  "4-7-8 breathing" in bot_message.lower():
-                st.audio("audio/4-7-8 breathing.m4a", format="audio.m4a")
+                st.audio("audio/4-7-8 breathing.m4a", format="audio/m4a")
             elif "abdominal breathing" in bot_message.lower():
-                st.audio("audio/abdominal breathing.m4a", format="audio.m4a")
+                st.audio("audio/abdominal breathing.m4a", format="audio/m4a")
             elif "focused meditation" in bot_message.lower():
-                st.audio("audio/focused_meditation.m4a", format="audio.m4a")
+                st.audio("audio/focused_meditation.m4a", format="audio/m4a")
             elif "progressive relaxation" in bot_message.lower():
-                st.audio("audio/progressive_relaxation.m4a", format="audio.m4a")
+                st.audio("audio/progressive_relaxation.m4a", format="audio/m4a")
             elif "mindfulness meditation" in bot_message.lower():
-                st.audio("audio/mindfulness_meditation.m4a", format="audio.m4a")
+                st.audio("audio/mindfulness_meditation.m4a", format="audio/m4a")
 
 
         
+
