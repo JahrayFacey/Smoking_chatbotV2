@@ -14,7 +14,6 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-user_input = st.chat_input("Type your message here...")
 if user_input:= st.chat_input("Type your message here..."):
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
@@ -56,5 +55,6 @@ if response.status_code == 200:
                 st.audio("audio/progressive_relaxation.m4a", format="audio.m4a")
             elif "mindfulness meditation" in bot_message.lower():
                 st.audio("audio/mindfulness_meditation.m4a", format="audio.m4a")
+
 
         
